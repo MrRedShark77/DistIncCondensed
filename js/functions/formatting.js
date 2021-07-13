@@ -1,3 +1,5 @@
+function E(x) { return new ExpantaNum(x) }
+
 function disp(val, places, locs, base) {
 	// Taken from OmegaNum.js (but altered slightly)
 	if (val.sign==-1) return "-"+disp(val.abs(), places, locs, base);

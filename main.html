@@ -168,7 +168,13 @@
 			Your current velocity is <span id="velocity"></span> (<span id="mvName"></span>
 			<span id="maxVel"></span>/s).<br />
 			Your current acceleration is <span id="acceleration"></span>/s<sup>2</sup
-			><span id="accEn"></span>.<br /><br />
+			><span id="accEn"></span>.<br /><br /><div id="condenserDiv">
+				<span id="condenserName"></span> <span id="condenser"></span>:
+				<button id="condenserUp" class="btn locked" onclick="tmp.condensed.normal_condensers.layer.reset(false, false)">
+					Reset your journey, but make distance boosts maximum velocity & acceleration. Currently: <span id="condenserEff" class="based"></span><br />Req:
+					<span id="condenserReq" class="based"></span>.
+				</button><br><br><br>
+			</div>
 			<table>
 				<tr>
 					<td>
@@ -260,6 +266,9 @@
 							</td>
 							<td>
 								<button id="hikers_dreamMode" class="btn tb opt ob" onclick="selectMode('hikers_dream')" style="z-index: 0">Hiker's Dream</button>
+							</td>
+							<td>
+								<button id="condensedMode" class="btn tb opt ob" onclick="selectMode('condensed')" style="z-index: 0">Condensed</button>
 							</td>
 						</tr>
 					</table>
@@ -517,7 +526,9 @@
 			<button id="rfReset" class="btn locked" onclick="tmp.rf.layer.reset(false, false)">
 				Reset your rockets (but nothing else) to get 1 rocket fuel<br />Req:
 				<span id="rfReq" class="based"></span> rockets.</button
-			><br /><br />
+			><button id="rCondenserDiv" class="btn locked" onclick="tmp.condensed.rc.buy()">
+				Condense Rockets for <span id="rCondenserCost" class="based"></span> rockets.<br>Currently: <span id="rCondenserEff" class="based"></span>
+			</button><br /><br />
 			You have <span id="rf"></span> <span id="rfName"></span>, which boosts the effect of rockets by
 			<span id="rfEff"></span>%, and adds <span id="rf2"></span> additional rockets to their effect.
 		</div>
@@ -907,6 +918,11 @@
 			><br /><br />
 			You have <span id="tc"></span>, translated to <span id="frf"></span> free rocket fuel
 			<span id="timeCubeEffSC"></span><br /><br />
+			<div id="trCondenserDiv">
+				<button id="trCondenser" class="btn locked" onclick="tmp.condensed.tr.buy()">
+					Condense Time Cubes for <span id="trCondenserCost" class="based"></span> Time Cubes.
+				</button><br><br>
+			</div>
 			<table id="trTable"></table>
 			<br>
 		</div>
@@ -2454,6 +2470,10 @@
 	<script type="text/javascript" src="js/main/extreme/stadium.js"></script>
 	<script type="text/javascript" src="js/main/extreme/magma.js"></script>
 	<script type="text/javascript" src="js/main/extreme/plasma.js"></script>
+
+	<!-- Condensed Mode File Data -->
+
+	<script type="text/javascript" src="js/main/condensed/condensed.js"></script>
 
 	<!-- Update -->
 	<script type="text/javascript" src="js/update.js"></script>

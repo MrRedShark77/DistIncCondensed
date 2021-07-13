@@ -2,6 +2,8 @@ function updateTempTR() {
 	if (tmp.tr===undefined) tmp.tr = {};
 	tmp.tr.txt = player.tr.active ? "Bring Time back to normal." : "Reverse Time.";
 	tmp.tr.esc = new ExpantaNum(1e20);
+	tmp.tr.lrm = E(1)
+	if (modeActive("condensed")) tmp.tr.lrm = tmp.tr.lrm.mul(4.65068e18)
 	cubes = player.tr.cubes;
 	if (cubes.gte(tmp.tr.esc)) cubes = cubes.cbrt().times(Math.pow(tmp.tr.esc, 2 / 3));
 	tmp.tr.eff = cubes.plus(1).log10().plus(1).logBase(2);
@@ -28,6 +30,7 @@ function getTimeCubeGain() {
 	if (tmp.dc) if (player.dc.unl) gain = gain.times(tmp.dc.deEff);
 	if (tmp.dc) if (player.tr.upgrades.includes(11)) gain = gain.times(tr11Eff()["cg"]);
 	if (tmp.inf) if (tmp.inf.upgs.has("2;3")) gain = gain.times(INF_UPGS.effects["2;3"]()["cubes"]);
+	if (modeActive('condensed') && player.tr.upgrades.includes(36)) gain = gain.mul(TR_UPGS[36].current())
 	return gain
 }
 
@@ -50,6 +53,9 @@ function tr1Eff() {
 
 function tr2Pow() {
 	let pow = new ExpantaNum(1)
+	if (tmp.condensed && modeActive("condensed")) pow = pow.times(player.condensers.tr
+		.add(player.tr.upgrades.includes(40)?TR_UPGS[40].current():0)
+		.mul(player.tr.upgrades.includes(39)?TR_UPGS[39].current():1).add(1))
 	if (tmp.pathogens && player.pathogens.unl) pow = pow.times(tmp.pathogens[1].eff());
 	return pow
 }

@@ -56,6 +56,10 @@ class Layer {
 					: DEFAULT_START[LAYER_RESETS[this.name][i]];
 		player = transformToEN(player, DEFAULT_START);
 		modeLoad(LAYER_RESETS_EXTRA[this.name]);
+		if (modeActive("condensed") && this.name == "collapse") {
+			player.condensers.rockets = E(0)
+			player.condensers.tr = E(0)
+		}
 		if (tmp[this.tName]) if (tmp[this.tName].onReset !== undefined) tmp[this.tName].onReset(prev, auto)
 		if (this.name!="rf"&&modeActive("hikers_dream")) calcInclines();
 		updateBeforeTick();

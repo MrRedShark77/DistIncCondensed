@@ -382,7 +382,7 @@ const MODEBALANCES = {
 	"": { // 96
 		balancing: "balanced up to endgame",
 		balanceCheck: false,
-	}
+	},
 };
 
 const MODES = {
@@ -409,11 +409,14 @@ const MODES = {
 	hikers_dream: {
 		desc: "You have to climb up a hill that gets steeper and steeper as you go (making progress slow down drastically), however there are new buffs to compensate for this steep hill.",
 	},
+	condensed: {
+		desc: "Idk about changes.",
+	},
 };
 
 const MODE_TABLE_DATA = {
 	top: [[[""],"Normal"], [["hikers_dream"],"Hiker's Dream"], [["extreme","hard"],"Extreme"], [["hikers_dream","extreme","hard"],"Extreme Dream"], [["hard"],"Hard"], [["hard","hikers_dream"],"Hard Dream"], [["absurd"],"Absurd"], [["absurd","hikers_dream"],"Absurd Dream"], [["absurd","extreme","hard"],"Absurd Extreme"], [["absurd","hikers_dream","extreme","hard"],"Absurd Extreme Dream"], [["absurd","hard"],"Absurd Hard"], [["absurd","hard","hikers_dream"],"Absurd Hard Dream"]],
-	left: [[[""],"Normal"], [["easy"],"Easy"], [["aau"],"AAU"], [["easy","aau"],"Easy AAU"], [["na"], "NA"], [["easy","na"],"Easy NA"], [["aau","na"],"AAU NA"], [["easy","na","aau"],"Easy AAU NA"]],
+	left: [[[""],"Normal"], [["easy"],"Easy"], [["aau"],"AAU"], [["easy","aau"],"Easy AAU"], [["na"], "NA"], [["easy","na"],"Easy NA"], [["aau","na"],"AAU NA"], [["easy","na","aau"],"Easy AAU NA"], [["condensed"],"Condensed"]],
 }
 
 const MODE_VARS = {
@@ -449,6 +452,13 @@ const MODE_VARS = {
 		genLvl: new ExpantaNum(0),
 		spentMotiveGens: new ExpantaNum(0),
 		bestMotive: new ExpantaNum(0),
+	},
+	condensed: {
+		normal_condensers: E(0),
+		condensers: {
+			rockets: E(0),
+			tr: E(0),
+		},
 	},
 };
 
@@ -509,5 +519,14 @@ const MODE_EX = {
 		source.spentMotiveGens = new ExpantaNum(source.spentMotiveGens||0)
 		source.bestMotive = new ExpantaNum(source.bestMotive||0)
 		return source;
+	},
+	condensed: function(source) {
+		source.normal_condensers = new ExpantaNum(source.normal_condensers||0)
+		let co = source.condensers||{}
+		source.condensers = {
+			rockets: E(co.rockets||0),
+			tr: E(co.tr||0),
+		}
+		return source
 	},
 };

@@ -26,7 +26,7 @@ const TR_UPGS = {
 	3: { cost: function(){return new ExpantaNum(1000)}, desc: "The Rank requirement formula is 10% slower." },
 	4: {
 		cost: function(){
-			return new ExpantaNum(2500)
+			return new ExpantaNum(modeActive("condensed")?1e6:2500)
 		},
 		desc: "Time Cube gain is increased by 33% for every OoM of Rockets (softcaps after a while).",
 		current: function () {
@@ -36,10 +36,10 @@ const TR_UPGS = {
 			return showNum(x) + "x";
 		}
 	},
-	5: { cost: function(){return new ExpantaNum(15000)}, desc: "Rocket Fuel is 10% stronger." },
+	5: { cost: function(){return new ExpantaNum(modeActive("condensed")?1e8:15000)}, desc: "Rocket Fuel is 10% stronger." },
 	6: {
 		cost: function(){
-			return new ExpantaNum(25000)
+			return new ExpantaNum(modeActive("condensed")?1e10:25000)
 		},
 		desc: "Scrap & Intelligence gain are increased by 10% for every OoM of Time Cubes.",
 		current: function () {
@@ -51,7 +51,7 @@ const TR_UPGS = {
 	},
 	7: {
 		cost: function(){
-			return new ExpantaNum(40000)
+			return new ExpantaNum(modeActive("condensed")?1e12:40000)
 		},
 		desc: "Time goes by 5% faster for every achievement gotten.",
 		current: function () {
@@ -63,7 +63,7 @@ const TR_UPGS = {
 	},
 	8: {
 		cost: function(){
-			return new ExpantaNum(75000)
+			return new ExpantaNum(modeActive("condensed")?2e13:75000)
 		},
 		desc: "Rankbot's interval boosts its magnitude.",
 		current: function () {
@@ -75,7 +75,7 @@ const TR_UPGS = {
 	},
 	9: {
 		cost: function(){
-			return new ExpantaNum(1.2e5)
+			return new ExpantaNum(modeActive("condensed")?3e13:1.2e5)
 		},
 		desc: "Tierbot's interval boosts its magnitude, but not as strongly as the previous upgrade.",
 		current: function () {
@@ -87,7 +87,7 @@ const TR_UPGS = {
 	},
 	10: {
 		cost: function(){
-			return new ExpantaNum(2e5)
+			return new ExpantaNum(modeActive("condensed")?1e14:2e5)
 		},
 		desc: "Rocket gain is increased by 10% for every OoM of Time Cubes (softcaps after a while).",
 		current: function () {
@@ -339,6 +339,62 @@ const TR_UPGS = {
 			return new ExpantaNum(modeActive("extreme+hikers_dream") ? "1e1500" : "1e1350")
 		}, 
 		desc: "Furnace Upgrade 4 works in Furnace Challenges, but it is weaker in them." 
+	},
+	36: {
+		cost: function(){
+			return new ExpantaNum(3e8)
+		}, 
+		desc: "Distance boosts Time Cubes gain.",
+		current: function() {
+			return player.distance.add(1).log10().add(1);
+		},
+		disp: function(x) {
+			return showNum(x)+"x"
+		},
+	},
+	37: {
+		cost: function(){
+			return new ExpantaNum(1e11)
+		}, 
+		desc: "Normal & Rocket Condensers are 25% stronger.",
+	},
+	38: {
+		cost: function(){
+			return new ExpantaNum(1e13)
+		}, 
+		desc: "Normal & Rocket Condensers are cheaper based on Time Cubes.",
+		current: function() {
+			let ret = player.tr.cubes.add(1).root(2)
+			if (ret.gte(1e9)) ret = ret.div(1e9).root(4).mul(1e9)
+			return ret;
+		},
+		disp: function(x) {
+			return "/"+showNum(x)
+		},
+	},
+	39: {
+		cost: function(){
+			return new ExpantaNum(1e15)
+		}, 
+		desc: "Time Cube Condensers are stronger based on rockets.",
+		current: function() {
+			return player.rockets.add(1).log10().add(1).root(10);
+		},
+		disp: function(x) {
+			return showNum(x.sub(1).mul(100))+"% stronger"
+		},
+	},
+	40: {
+		cost: function(){
+			return new ExpantaNum(1e28)
+		}, 
+		desc: "Distance adds free Time Cube Condensers at a reduced rate.",
+		current: function() {
+			return player.distance.add(1).log10().root(10);
+		},
+		disp: function(x) {
+			return "+"+showNum(x)
+		},
 	},
 };
 const TR_UPG_AMT = Object.keys(TR_UPGS).length;

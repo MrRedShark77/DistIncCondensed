@@ -2,6 +2,10 @@ function calcModeAndBalanceName(modes) {
 	modeName = ""
 	balanceName = ""
 	// Naming order: Absurd AAU/NA Easy (or Easy-) Hard/Extreme Dream
+	if (modes.includes("condensed")) {
+		modeName += "Condensed ";
+		balanceName += "condensed_";
+	}
 	if(modes.includes("absurd")) {
 		modeName += "Absurd ";
 		balanceName += "absurd_";
@@ -298,7 +302,7 @@ function updateTimeReversalHTML(){
 			if (!tr11Pow().eq(1) && i == 11)
 				desc += "<span class='grossminitxt'>(^" + showNum(tr11Pow()) + ")</span>";
 			tmp.el["tr" + i].setHTML(desc + "<br>Cost: " + showNum(upg.cost()) + " Time Cubes.");
-			if (upg.current !== undefined && (i > 15 ? modeActive("extreme") : true))
+			if (upg.current !== undefined && (i > 15 && i < 36 ? modeActive("extreme") : true))
 				tmp.el["tr" + i].setTooltip("Currently: " + upg.disp(upg.current()));
 			tmp.el["tr" + i].setClasses({
 				btn: true,
@@ -312,6 +316,7 @@ function updateTimeReversalHTML(){
 		tmp.el.trRow5.setDisplay(modeActive("extreme") && player.collapse.unl);
 		tmp.el.trRow6.setDisplay(modeActive("extreme") && player.dc.unl);
 		tmp.el.trRow7.setDisplay(modeActive("extreme") && player.inf.endorsements.gt(0))
+		tmp.el.trRow8.setDisplay(modeActive("condensed"))
 	}
 }
 
@@ -863,6 +868,14 @@ function updatePlasma() {
 				tmp.el["plB"+i+"Curr"].setTxt(cd.effD(tmp.fn.pl.boosts[i]));
 			}
 		}
+	}
+}
+
+function updateOverallCondensedModeHTML() {
+	tmp.el.condenserDiv.setDisplay(modeActive('condensed'));
+	tmp.el.rCondenserDiv.setDisplay(modeActive('condensed'));
+	if (modeActive('condensed')) {
+		updateCondensersHTML()
 	}
 }
 
@@ -1628,6 +1641,7 @@ function updateHTML() {
 	updateDarkCircleHTML()
 	updateAllInfinityHTML()
 	updateOverallExtremeModeHTML()
+	updateOverallCondensedModeHTML()
 	updateStatisticsHTML()
 	updateOverallElementaryHTML()
 	updateOverallEnergyHTML()

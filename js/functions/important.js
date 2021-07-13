@@ -1,5 +1,5 @@
 function loadGame() {
-	let ls = localStorage.getItem("dist-inc" + betaID);
+	let ls = localStorage.getItem("dist-inc-condensed" + betaID);
 	loaded = true;
 	if (!((ls || "x") == "x")) {
 		let data = JSON.parse(atob(ls));
@@ -9,8 +9,8 @@ function loadGame() {
 	}
 	let all = JSON.parse(
 		atob(
-			localStorage.getItem("dist-inc-saves" + betaID)
-				? localStorage.getItem("dist-inc-saves" + betaID)
+			localStorage.getItem("dist-inc-condensed-saves" + betaID)
+				? localStorage.getItem("dist-inc-condensed-saves" + betaID)
 				: btoa(JSON.stringify([]))
 		)
 	);
@@ -22,14 +22,14 @@ function loadGame() {
 			if (s.savePos > MAX_SAVES) s.savePos = MAX_SAVES;
 			player = transformToEN(s)
 			player.modes = []
-			localStorage.setItem("dist-inc" + betaID, btoa(JSON.stringify(ENString(player))));
+			localStorage.setItem("dist-inc-condensed" + betaID, btoa(JSON.stringify(ENString(player))));
 			if (
 				(all.includes(null) || all[player.savePos - 1] === undefined || all[player.savePos - 1].savePos == player.savePos) &&
 				all.length >= player.savePos
 			)
 				all[player.savePos - 1] = ENString(player);
 			else all.push(ENString(player));
-			localStorage.setItem("dist-inc-saves" + betaID, btoa(JSON.stringify(all)));
+			localStorage.setItem("dist-inc-condensed-saves" + betaID, btoa(JSON.stringify(all)));
 			reload();
 		}
 	let c = 1;
@@ -38,7 +38,7 @@ function loadGame() {
 			if (all[i].saveID == player.saveID && i < MAX_SAVES) c = i + 1;
 			if (i >= MAX_SAVES) all[i] = undefined;
 		}
-	localStorage.setItem("dist-inc-saves" + betaID, btoa(JSON.stringify(all)));
+	localStorage.setItem("dist-inc-condensed-saves" + betaID, btoa(JSON.stringify(all)));
 	player.savePos = c;
 	modeLoad([]);
 	loadOptions();

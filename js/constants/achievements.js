@@ -349,7 +349,7 @@ const ACH_DATA = {
 		12: "Acceleration is showNum(10)% higherboolean(extreme, and Rank Cheapeners are +0.5x stronger for each achievement gotten).",
 		14: "Acceleration & Maximum Velocity are showNum(50)% higherboolean(extreme, and you start with one Rank Cheapener on Rocket reset).",
 		15: "Rocket gain is increased by showNum(5)%boolean(extreme, and unlock The Furnace).",
-		16: "boolean(extreme+hikers_dream,Total motive boosts coal gain.)",
+		16: "boolean(extreme+hikers_dream,Total motive boosts coal gain. )boolean(condensed,Condenser softcap are 25% weaker.)",
 		17: "Time goes by showNum(1)% faster.",
 		18: "Time goes by showNum(50)% faster.",
 
@@ -361,7 +361,7 @@ const ACH_DATA = {
 		27: "Time goes by showNum(10)% faster.",
 
 		32: "Acceleration is showNum(80)% higher.",
-		34: "Rocket gain is increased by showNum(10)%boolean(extreme, and you get another extra Rank Cheapener).",
+		34: "Rocket gain is increased by showNum(10)%boolean(extreme, and you get another extra Rank Cheapener)boolean(condensed, and Condenser no longer resets distance).",
 		35: "Acceleration is showNum(80)% higherboolean(extreme, and the Coal effect is doubled).",
 		36: "Scrap & intelligence gain are increased by showNum(50)%boolean(extreme+hikers_dream, and each furnace upgrade increase the Optimization softcap start by 10%).",
 		38: "Cadaver gain is doubledboolean(extreme+hikers_dream, and multiplied by the square of energy upgrades (minimum 1)).",
@@ -369,6 +369,7 @@ const ACH_DATA = {
 		41: "Maximum Velocity is showNum(50)% higher.",
 		43: "The Rank requirement formula is showNum(2.5)% slower.",
 		44: "Rocket gain is increased by showNum(15)%.",
+		45: "boolean(condensed,Condenser requirement formula are 25% weaker.)",
 		46: "Intelligence gain is doubled.",
 		47: "Time goes by showNum(50)% faster.",
 		48: "You can buy max robot upgrades.",

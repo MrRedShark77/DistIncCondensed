@@ -1,6 +1,7 @@
 const LAYER_RESETS = {
 	rank: ["distance", "velocity"],
 	rankCheap: ["distance", "velocity"],
+	normal_condensers: ["distance", "velocity"],
 	tier: ["distance", "velocity", "rank"],
 	rockets: ["distance", "velocity", "rank", "tier"],
 	rf: ["rockets"],
@@ -38,15 +39,16 @@ const LAYER_RESETS = {
 };
 
 const LAYER_RESETS_EXTRA = {
-	rank: ["energy", "canRefill"],
-	rankCheap: ["energy", "canRefill"],
-	tier: ["energy", "canRefill", "rankCheap"],
-	rockets: ["energy", "canRefill", "rankCheap"],
+	rank: ["energy", "canRefill", "normal_condensers"],
+	rankCheap: ["energy", "canRefill", "normal_condensers"],
+	normal_condensers: ["energy", "canRefill"],
+	tier: ["energy", "canRefill", "rankCheap", "normal_condensers"],
+	rockets: ["energy", "canRefill", "rankCheap", "normal_condensers"],
 	rf: [],
-	collapse: ["energy", "canRefill", "rankCheap", "furnace"],
-	inf: ["energy", "canRefill", "rankCheap", "furnace", "activeFC"],
-	elementary: ["energy", "spentMotive", "energyUpgs", "canRefill", "geners", "genLvl", "spentMotiveGens", "bestMotive", "rankCheap", "furnace", "activeFC", "furnChalls", "extremeStad"],
-	multiverse: ["energy", "spentMotive", "energyUpgs", "canRefill", "geners", "genLvl", "spentMotiveGens", "bestMotive", "rankCheap", "furnace", "activeFC", "furnChalls", "extremeStad", "magma", "plasma"],
+	collapse: ["energy", "canRefill", "rankCheap", "furnace", "normal_condensers"],
+	inf: ["energy", "canRefill", "rankCheap", "furnace", "activeFC", "normal_condensers"],
+	elementary: ["energy", "spentMotive", "energyUpgs", "canRefill", "geners", "genLvl", "spentMotiveGens", "bestMotive", "rankCheap", "furnace", "activeFC", "furnChalls", "extremeStad", "normal_condensers"],
+	multiverse: ["energy", "spentMotive", "energyUpgs", "canRefill", "geners", "genLvl", "spentMotiveGens", "bestMotive", "rankCheap", "furnace", "activeFC", "furnChalls", "extremeStad", "magma", "plasma", "normal_condensers"],
 };
 
 const LAYER_REQS = {
@@ -87,6 +89,7 @@ const LAYER_SC = {
 };
 
 const LAYER_RESETS_NOTHING = {
+	normal_condensers() { return player.achievements.includes(34) && modeActive("condensed") },
 	rank() { return tmp.collapse ? hasCollapseMilestone(12) : false },
 	rankCheap() { return tmp.ach[112].has },
 	tier() { return player.tr.upgrades.includes(14) && !HCCBA("noTRU") },

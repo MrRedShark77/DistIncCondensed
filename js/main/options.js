@@ -1,9 +1,9 @@
 function saveOptions() {
-	localStorage.setItem("dist-inc-options" + betaID, btoa(JSON.stringify(player.options)));
+	localStorage.setItem("dist-inc-condensed-options" + betaID, btoa(JSON.stringify(player.options)));
 }
 
 function loadOptions() {
-	let optData = localStorage.getItem("dist-inc-options" + betaID)
+	let optData = localStorage.getItem("dist-inc-condensed-options" + betaID)
 	if (!optData) return;
 	let name = player.options.name;
 	player.options = JSON.parse(atob(optData));
@@ -11,19 +11,19 @@ function loadOptions() {
 }
 
 function getAllSaves() {
-	let local = localStorage.getItem("dist-inc-saves" + betaID)
+	let local = localStorage.getItem("dist-inc-condensed-saves" + betaID)
 	let all = JSON.parse(atob(local ? local : btoa(JSON.stringify([]))));
 	return all
 }
 
 function save(sav=player, force=false) {
 	if (!showContainer && !force) return;
-	localStorage.setItem("dist-inc" + betaID, btoa(JSON.stringify(ENString(sav))));
+	localStorage.setItem("dist-inc-condensed" + betaID, btoa(JSON.stringify(ENString(sav))));
 	let all = getAllSaves();
 	if ((all.includes(null) || all[sav.savePos - 1] === undefined || all[sav.savePos - 1].savePos == sav.savePos) && all.length >= sav.savePos) {
 		all[sav.savePos - 1] = ENString(sav);
 	} else all.push(ENString(sav));
-	localStorage.setItem("dist-inc-saves" + betaID, btoa(JSON.stringify(all)));
+	localStorage.setItem("dist-inc-condensed-saves" + betaID, btoa(JSON.stringify(all)));
 	if (document.hasFocus()) notifier.success("Game saved!");
 }
 
@@ -38,7 +38,7 @@ function deleteSave(loc) {
 	let all = getAllSaves();
 	let isCurrent = all[loc].saveID == player.saveID;
 	all[loc] = null;
-	localStorage.setItem("dist-inc-saves" + betaID, btoa(JSON.stringify(all)));
+	localStorage.setItem("dist-inc-condensed-saves" + betaID, btoa(JSON.stringify(all)));
 	if (isCurrent) startModes([]);
 	else {
 		loads();
@@ -335,7 +335,7 @@ function importAll() {
 		try {
 			saves = JSON.parse(atob(input));
 			notifier.info("Saves imported");
-			localStorage.setItem("dist-inc-saves"+betaID, input)
+			localStorage.setItem("dist-inc-condensed-saves"+betaID, input)
 			let s = transformToEN(saves[saves.findIndex(x => x!=null)]);
 			setSave(s);
 		} catch (e) {
@@ -453,7 +453,7 @@ function getCompletedModeCombos() {
 		let m = p.modes;
 		let id = calcModeAndBalanceName(m).balanceName;
 		
-		if (MODEBALANCES[id].balancing=="balanced up to first multiverse" && ExpantaNum.gte(p.bestDistance, DISTANCES.mlt) && p.achievements.length>=136) toRet.push(m);
+		if ((MODEBALANCES[id] ? MODEBALANCES[id].balancing=="balanced up to first multiverse" : false) && ExpantaNum.gte(p.bestDistance, DISTANCES.mlt) && p.achievements.length>=136) toRet.push(m);
 		else if (ExpantaNum.gte(p.bestDistance, ExpantaNum.pow(DISTANCES.mlt, 1e3)) && p.achievements.length>=152) toRet.push(m);
 	}
 	return toRet;

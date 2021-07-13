@@ -3,6 +3,7 @@ function updateTempAuto() {
 
 	if (!tmp.auto) tmp.auto = {};
 	tmp.auto.lrm = new ExpantaNum(1);
+	if (modeActive("condensed")) tmp.auto.lrm = tmp.auto.lrm.mul(3.086e10)
 	if (modeActive("hard")) tmp.auto.lrm = tmp.auto.lrm.times(10);
 	
 	for (let i = 0; i < Object.keys(ROBOT_REQS).length; i++)
@@ -305,6 +306,7 @@ function multivAutoTick() {
 
 function autoTick(diff) {
 	normalAutoTick(diff)
+	AutoNormalCondensers()
 	furnaceAutoTick()
 	pathogenAutoTick()
 	darkCoreAutoTick()

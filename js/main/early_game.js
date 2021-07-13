@@ -29,6 +29,7 @@ function calcAcceleration(){
 	if (tmp.maxVel && tmp.inf) if (tmp.inf.upgs.has("6;6")) tmp.acc = tmp.acc.times(INF_UPGS.effects["6;6"]());
 	if (tmp.inf && tmp.timeSpeed) if (tmp.inf.upgs.has("4;7")) tmp.acc = tmp.acc.times(INF_UPGS.effects["4;7"]());
 	if (tmp.rockets) tmp.acc = tmp.acc.times(tmp.rockets.accPow);
+	if (modeActive("condensed") && tmp.condensed) tmp.acc = tmp.acc.mul(tmp.condensed.normal_condensers.effect)
 	if (nerfActive("nerfAccel")) tmp.acc = tmp.acc.pow(0.1);
 	if (tmp.inf && player.inf.derivatives.unl)
 		tmp.acc = tmp.acc.times(
@@ -66,6 +67,7 @@ function calcMaxVelocity(){
 	if (tmp.inf && tmp.timeSpeed) if (tmp.inf.upgs.has("4;7")) tmp.maxVel = tmp.maxVel.times(INF_UPGS.effects["4;7"]());
 	if (tmp.inf) if (tmp.inf.upgs.has("7;7")) tmp.maxVel = tmp.maxVel.times(INF_UPGS.effects["7;7"]()["ve"]);
 	if (tmp.rockets) tmp.maxVel = tmp.maxVel.times(tmp.rockets.mvPow);
+	if (modeActive("condensed") && tmp.condensed) tmp.maxVel = tmp.maxVel.mul(tmp.condensed.normal_condensers.effect)
 	if (nerfActive("nerfMaxVel")) tmp.maxVel = tmp.maxVel.pow(0.1);
 	if (extremeStadiumActive("nullum", 2)) tmp.maxVel = ExpantaNum.pow(10, tmp.maxVel.log10().times(0.9-0.02*(extremeStadDiffLevel("nullum")-2)))
 	if (modeActive("hikers_dream") && tmp.hd) tmp.maxVel = tmp.maxVel.pow(tmp.hd.inclineRed)

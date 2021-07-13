@@ -32,14 +32,14 @@ function loadTempFeatures() {
 		}),
 		"time reversal": new Feature({
 			name: "time reversal",
-			req: function() { return new ExpantaNum(DISTANCES.ly) },
+			req: function() { return E(DISTANCES.ly).mul(tmp.tr ? tmp.tr.lrm : 1) },
 			res: "distance",
 			display: formatDistance,
 			reached: function() { return player.tr.unl },
 			progress: function () {
 				if (player.options.featPerc=="logarithm") {
-					return player.distance.max(1).log10().div(new ExpantaNum(DISTANCES.ly).log10());
-				} else return ExpantaNum.div(DISTANCES.ly, player.distance).pow(-1)
+					return player.distance.max(1).log10().div(E(DISTANCES.ly).mul(tmp.tr ? tmp.tr.lrm : 1).log10());
+				} else return ExpantaNum.div(E(DISTANCES.ly).mul(tmp.tr ? tmp.tr.lrm : 1), player.distance).pow(-1)
 			}
 		}),
 		collapse: new Feature({

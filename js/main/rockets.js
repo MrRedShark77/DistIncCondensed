@@ -61,6 +61,7 @@ function getRocketGainMult() {
 		}
 	if (tmp.elm)
 		if (player.elementary.times.gt(0)) mult = mult.times(tmp.elm.ferm.quarkR("up").max(1));
+	if (modeActive("condensed") && tmp.condensed) mult = mult.mul(tmp.condensed.rc.effect)
 	if (mult.eq(0)) mult = new ExpantaNum(1)
 	return mult
 }
@@ -68,6 +69,7 @@ function getRocketGainMult() {
 function updateTempRockets() {
 	if (!tmp.rockets) tmp.rockets = {};
 	tmp.rockets.lrm = new ExpantaNum(1);
+	if (modeActive("condensed")) tmp.rockets.lrm = tmp.rockets.lrm.mul(2e5)
 	if (modeActive("hikers_dream")){
 		if (modeActive("extreme")) tmp.rockets.lrm = new ExpantaNum(.1)
 	} else {
