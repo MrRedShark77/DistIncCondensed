@@ -337,7 +337,7 @@ function getPathogenUpgData(i) {
 			.plus(start3)
 			.add(1);
 	}
-	return {cost: cost, bulk: bulk}
+	return {cost: cost, bulk: bulk.isNaN()?E(0):bulk}
 }
 
 function getPathogenUpgSoftcapStart(x) {

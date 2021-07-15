@@ -60,6 +60,12 @@ class Layer {
 			player.condensers.rockets = E(0)
 			player.condensers.tr = E(0)
 		}
+		if (modeActive("condensed") && this.name == "inf") {
+			player.condensers.rockets = E(0)
+			player.condensers.tr = E(0)
+			player.condensers.pathogens = E(0)
+			player.condensers.dc = E(0)
+		}
 		if (tmp[this.tName]) if (tmp[this.tName].onReset !== undefined) tmp[this.tName].onReset(prev, auto)
 		if (this.name!="rf"&&modeActive("hikers_dream")) calcInclines();
 		updateBeforeTick();

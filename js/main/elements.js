@@ -875,6 +875,7 @@ function updateOverallCondensedModeHTML() {
 	tmp.el.condenserDiv.setDisplay(modeActive('condensed'));
 	tmp.el.rCondenserDiv.setDisplay(modeActive('condensed'));
 	tmp.el.pthCondenserDiv.setDisplay(modeActive('condensed'));
+	tmp.el.dcCondenserDiv.setDisplay(modeActive('condensed'));
 	if (modeActive('condensed')) {
 		updateCondensersHTML()
 	}

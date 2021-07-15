@@ -160,7 +160,7 @@ const INF_UPGS = {
 		"10;10": new ExpantaNum(1.5e161),
 	},
 	descs: {
-		"1;1": "Ranks & Tiers boost Time Speed.",
+		"1;1"() { return "Ranks & Tiers boost Time Speed."+(modeActive("condensed")?" Unlock Auto-Time Cube Condensers.":"") },
 		"1;2": "Knowledge boosts Rocket gain.",
 		"1;3": "Start with the first 2 rows of Time Reversal upgrades on reset.",
 		"1;4": "Keep Time Reversal upgrades on reset.",

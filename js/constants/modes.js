@@ -459,6 +459,7 @@ const MODE_VARS = {
 			rockets: E(0),
 			tr: E(0),
 			pathogens: E(0),
+			dc: E(0),
 		},
 	},
 };
@@ -528,6 +529,7 @@ const MODE_EX = {
 			rockets: E(co.rockets||0),
 			tr: E(co.tr||0),
 			pathogens: E(co.pathogens||0),
+			dc: E(co.dc||0),
 		}
 		return source
 	},

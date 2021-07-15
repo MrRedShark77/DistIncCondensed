@@ -124,7 +124,8 @@ function updateTempInfUpgs() {
 	if (!tmp.inf.upgs.desc) tmp.inf.upgs.desc = function (sel) {
 		if (sel === undefined) return "";
 		return (
-			((sel=="10;1"&&hasMltMilestone(16))?"Superscaled Pathogen Upgrade scaling is weaker based on your Ascension Power, and Distance produces your last Derivative at a reduced rate (unaffected by Time Speed)":INF_UPGS.descs[sel]) +
+			((sel=="10;1"&&hasMltMilestone(16))?"Superscaled Pathogen Upgrade scaling is weaker based on your Ascension Power, and Distance produces your last Derivative at a reduced rate (unaffected by Time Speed)"
+			:(typeof INF_UPGS.descs[sel] == "function"?INF_UPGS.descs[sel]():INF_UPGS.descs[sel])) +
 			"<br>" +
 			(!tmp.inf.upgs.has(sel)
 				? "Cost: " +
@@ -199,7 +200,7 @@ function calcKnowledgeGain(){
 function updateTempInfLayer() {
 	tmp.inf.fp = new ExpantaNum(1);
 	tmp.inf.bc = INF_UNL;
-	if (modeActive("condensed")) tmp.inf.bc = tmp.inf.bc.pow(2)
+	if (modeActive("condensed")) tmp.inf.bc = tmp.inf.bc.pow(2.5)
 	tmp.inf.emPow = new ExpantaNum(1);
 	if (player.mlt.times.gt(0) && tmp.mlt) tmp.inf.emPow = tmp.inf.emPow.times(tmp.mlt.quilts[2].eff)
 	calcKnowledgeGain()

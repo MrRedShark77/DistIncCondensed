@@ -27,6 +27,13 @@ function updateCondensersHTML(){
     (tmp.condensed.pth.effect.gte(tmp.condensed.pth.effectSS)
     ? " <span class='sc'>(softcapped)</span>"
     : ""))
+
+    tmp.el.dcCondenser.setClasses({ locked: !tmp.condensed.dc.can, darkcore: true, dcAni: true });
+	tmp.el.dcCondenserCost.setTxt(showNum(tmp.condensed.dc.cost));
+    tmp.el.dcCondenserEff.setHTML("x"+showNum(tmp.condensed.dc.effect)+
+    (tmp.condensed.dc.effect.gte(tmp.condensed.dc.effectSS)
+    ? " <span class='sc'>(softcapped)</span>"
+    : ""))
 }
 
 function updateTempCondensed() {
@@ -82,6 +89,19 @@ function updateTempCondensed() {
     tmp.condensed.pth.effectSS = E(1e3)
     if (tmp.condensed.pth.effect.gte(tmp.condensed.pth.effectSS)) tmp.condensed.pth.effect = tmp.condensed.pth.effect.div(tmp.condensed.pth.effectSS)
     .root(3).mul(tmp.condensed.pth.effectSS)
+
+    if (!tmp.condensed.dc) tmp.condensed.dc = {}
+    tmp.condensed.dc.cost = E(100).pow(player.condensers.dc.pow(1.25)).mul(1e3).floor()
+    tmp.condensed.dc.can = player.dc.matter.gte(tmp.condensed.dc.cost)
+    if (!tmp.condensed.dc.buy) tmp.condensed.dc.buy = function() {
+        if (tmp.condensed.dc.can) {
+            player.condensers.dc = player.condensers.dc.add(1)
+        }
+    }
+    tmp.condensed.dc.effect = player.dc.matter.add(1).log10().add(1).pow(player.condensers.dc)
+    tmp.condensed.dc.effectSS = E(1e3)
+    if (tmp.condensed.dc.effect.gte(tmp.condensed.dc.effectSS)) tmp.condensed.dc.effect = tmp.condensed.dc.effect.div(tmp.condensed.dc.effectSS)
+    .root(3).mul(tmp.condensed.dc.effectSS)
 }
 
 function getCadaverEff2() {
@@ -109,6 +129,27 @@ function AutoCondensers() {
         .mul(player.tr.upgrades.includes(38) ? TR_UPGS[38].current() : 1).div(100).max(1).logBase(100).root(1.25).add(1).floor() : E(0)
         if (bulk.gte(player.condensers.rockets) && tmp.condensed.rc.can) {
             player.condensers.rockets = bulk
+        }
+    }
+    if (player.automators.time_condensers) {
+        let bulk = player.tr.cubes.gte(1e3) ? player.tr.cubes
+        .div(1e3).max(1).logBase(100).root(1.25).add(1).floor() : E(0)
+        if (bulk.gte(player.condensers.tr) && tmp.condensed.tr.can) {
+            player.condensers.tr = bulk
+        }
+    }
+    if (player.automators.pathogens) {
+        let bulk = player.pathogens.amount.gte(1e3) ? player.pathogens.amount
+        .div(1e3).max(1).logBase(100).root(1.25).add(1).floor() : E(0)
+        if (bulk.gte(player.condensers.pathogens) && tmp.condensed.pth.can) {
+            player.condensers.pathogens = bulk
+        }
+    }
+    if (player.automators.cores) {
+        let bulk = player.dc.matter.gte(1e3) ? player.dc.matter
+        .div(1e3).max(1).logBase(100).root(1.25).add(1).floor() : E(0)
+        if (bulk.gte(player.condensers.dc) && tmp.condensed.dc.can) {
+            player.condensers.dc = bulk
         }
     }
 }

@@ -12,6 +12,7 @@ function updateTempDarkCoreCost(){
 	let base3 = ExpantaNum.pow(1.03, power3);
 
 	let bcMult = modeActive("extreme") ? 0.25 : 10
+	if (modeActive("condensed")) bcMult *= 1e9
 
 	let starting 
 	if (scalingActive("darkCore", nAmt, "hyper")) {
@@ -55,6 +56,7 @@ function updateTempDarkCoreCost(){
 
 function calcDarkFlow(){
 	tmp.dc.flow = new ExpantaNum(1);
+	if (modeActive("condensed") && tmp.condensed) tmp.dc.flow = tmp.dc.flow.times(tmp.condensed.dc.effect)
 	if (tmp.ach[75].has) tmp.dc.flow = tmp.dc.flow.times(1.1);
 	if (tmp.ach[83].has) tmp.dc.flow = tmp.dc.flow.times(1.2);
 	if (tmp.ach[131].has) tmp.dc.flow = tmp.dc.flow.times(1.5);

@@ -101,7 +101,7 @@ const TR_UPGS = {
 	},
 	11: {
 		cost: function(){
-			return new ExpantaNum(modeActive("extreme+hikers_dream") ? 1e70 : 1e60)
+			return new ExpantaNum(modeActive("extreme+hikers_dream") ? 1e70 : 1e60).mul(modeActive("condensed")?1e95:1)
 		},
 		desc: "Time Cubes and Dark Flow boost each other, and Scaled Rank scaling starts 10 Ranks later.",
 		current: function () {
@@ -113,7 +113,7 @@ const TR_UPGS = {
 	},
 	12: {
 		cost: function(){
-			return new ExpantaNum(modeActive("extreme+hikers_dream") ? 1e105 : 1e70)
+			return new ExpantaNum(modeActive("extreme+hikers_dream") ? 1e105 : 1e70).mul(modeActive("condensed")?1e210:1)
 		},
 		desc: "Each component of The Dark Circle boosts Dark Flow, and Scaled Tier scaling starts 2 Tiers later.",
 		current: function () {
@@ -125,7 +125,7 @@ const TR_UPGS = {
 	},
 	13: {
 		cost: function(){
-			return new ExpantaNum(modeActive("extreme+hikers_dream") ? 1e115 : 1e105)
+			return new ExpantaNum(modeActive("extreme+hikers_dream") ? 1e115 : 1e105).mul(modeActive("condensed")?1e195:1)
 		},
 		desc: "Each component of The Dark Circle boosts Pathogen Upgrade efficiency.",
 		current: function () {
@@ -137,7 +137,7 @@ const TR_UPGS = {
 	},
 	14: {
 		cost: function(){
-			return new ExpantaNum(modeActive("extreme+hikers_dream") ? 1e123 : 1e115)
+			return new ExpantaNum(modeActive("extreme+hikers_dream") ? 1e123 : 1e115).mul(modeActive("condensed")?1e205:1)
 		},
 		desc:
 			"Tiers do not reset anything, Scaled Tier scaling starts later based on your Dark Cores, and Tiers boost Cadaver gain.",
@@ -150,7 +150,7 @@ const TR_UPGS = {
 	},
 	15: {
 		cost: function(){
-			return new ExpantaNum(modeActive("extreme+hikers_dream") ? 1e127 : 4.56e123)
+			return new ExpantaNum(modeActive("extreme+hikers_dream") ? 1e127 : 4.56e123).mul(modeActive("condensed")?1e217/4.56:1)
 		},
 		desc:
 			"Scaled Rank scaling starts 32 Ranks later, and all effects of The Dark Circle are stronger based on your Dark Cores.",

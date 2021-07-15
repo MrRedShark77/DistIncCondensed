@@ -52,6 +52,9 @@ const AUTOMATORS = {
 	rocket_condensers: function () {
 		return hasCollapseMilestone(5) && modeActive("condensed");
 	},
+	time_condensers: function () {
+		return player.inf.upgrades.includes("1;1") && modeActive("condensed");
+	},
 	furnace: function () {
 		return player.tr.upgrades.includes(21) && modeActive("extreme");
 	},
@@ -127,6 +130,7 @@ const AUTOMATORS = {
 };
 
 const AUTOMATOR_BORDER = {
+	time_condensers: "#d417ca",
 	furnace: "#c4711d",
 	pathogens: "#b6c495",
 	cores: "rgb(184, 0, 82)",

@@ -111,8 +111,10 @@ function tr11Pow() {
 }
 
 function tr11Eff() {
+	let cg = tmp.dc ? tmp.dc.flow.pow(tmp.dc.flow.plus(1).slog(2).times(10).plus(1)).pow(tr11Pow()) : new ExpantaNum(1)
+	if (modeActive("condensed")) cg = cg.root(5)
 	return {
-		cg: tmp.dc ? tmp.dc.flow.pow(tmp.dc.flow.plus(1).slog(2).times(10).plus(1)).pow(tr11Pow()) : new ExpantaNum(1),
+		cg: cg,
 		dcf: player.tr.cubes.plus(1).log10().div(75).plus(1).pow(tr11Pow())
 	}
 }
