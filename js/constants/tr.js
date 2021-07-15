@@ -20,7 +20,9 @@ const TR_UPGS = {
 			return tr2Eff();
 		},
 		disp: function (x) {
-			return showNum(x) + "x";
+			let ss = E(1e30)
+			if (tmp.pathogens && player.pathogens.unl) ss = ss.mul(tmp.pathogens[1].eff())
+			return showNum(x) + "x" + (x.gte(ss)?" (softcapped)":"");
 		}
 	},
 	3: { cost: function(){return new ExpantaNum(1000)}, desc: "The Rank requirement formula is 10% slower." },
@@ -369,7 +371,7 @@ const TR_UPGS = {
 			return ret;
 		},
 		disp: function(x) {
-			return "/"+showNum(x)
+			return "/"+showNum(x)+(x.gte(1e9)?" (softcapped)":"")
 		},
 	},
 	39: {

@@ -199,6 +199,7 @@ function calcKnowledgeGain(){
 function updateTempInfLayer() {
 	tmp.inf.fp = new ExpantaNum(1);
 	tmp.inf.bc = INF_UNL;
+	if (modeActive("condensed")) tmp.inf.bc = tmp.inf.bc.pow(2)
 	tmp.inf.emPow = new ExpantaNum(1);
 	if (player.mlt.times.gt(0) && tmp.mlt) tmp.inf.emPow = tmp.inf.emPow.times(tmp.mlt.quilts[2].eff)
 	calcKnowledgeGain()

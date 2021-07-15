@@ -56,13 +56,16 @@ function tr2Pow() {
 	if (tmp.condensed && modeActive("condensed")) pow = pow.times(player.condensers.tr
 		.add(player.tr.upgrades.includes(40)?TR_UPGS[40].current():0)
 		.mul(player.tr.upgrades.includes(39)?TR_UPGS[39].current():1).add(1))
-	if (tmp.pathogens && player.pathogens.unl) pow = pow.times(tmp.pathogens[1].eff());
+	if (tmp.pathogens && player.pathogens.unl && !modeActive("condensed")) pow = pow.times(tmp.pathogens[1].eff());
 	return pow
 }
 
 function tr2Eff() {
 	let pow = tr2Pow()
 	let eff = player.tr.cubes.plus(1).log10().plus(1).pow(pow)
+	let ss = E(1e30)
+	if (tmp.pathogens && player.pathogens.unl) ss = ss.mul(tmp.pathogens[1].eff())
+	if (eff.gte(ss) && modeActive("condensed")) eff = eff.div(ss).root(3).mul(ss)
 	return eff
 }
 

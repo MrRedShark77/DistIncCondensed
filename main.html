@@ -932,7 +932,7 @@
 				<span id="cadaverGainSC"></span></button
 			><br /><br />
 			You have <span id="cadavers"></span>, which make time go <span id="cadaverEff" class="dead"></span>x faster
-			<span id="cadaverEffSC"></span><br /><br />
+			<span id="cadaverEffSC"></span><span id="cadaverCondensed"></span><br /><br />
 			<button id="sacrificeCadavers" class="btn locked" onclick="sacrificeToLifeEssence()">
 				Sacrifice all your cadavers into life essence.</button
 			><br /><br />
@@ -943,6 +943,11 @@
 		<div id="pathogens" class="tab" style="display: none;">
 			<span id="tdeEff"></span>
 			You have <span id="pathogensAmt"></span> <span id="pthGainSC"></span><br /><br />
+			<div id="pthCondenserDiv">
+				<button id="pthCondenser" class="btn locked" onclick="tmp.condensed.pth.buy()">
+					Condense Pathogens for <span id="pthCondenserCost" class="based"></span> Pathogens.<br>Currently: <span id="pthCondenserEff" class="based"></span>
+				</button><br><br>
+			</div>
 			<button class="btn gross" onclick="tmp.pathogens.maxAll()">Max All</button><br /><br />
 			<span id="pthUpgPow" class="grosstxt"></span>
 			<div id="pthUpgs"></div>

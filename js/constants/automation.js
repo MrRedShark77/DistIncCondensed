@@ -49,6 +49,9 @@ const AUTOMATORS = {
 	normal_condensers: function () {
 		return player.automation.unl && modeActive("condensed");
 	},
+	rocket_condensers: function () {
+		return hasCollapseMilestone(5) && modeActive("condensed");
+	},
 	furnace: function () {
 		return player.tr.upgrades.includes(21) && modeActive("extreme");
 	},
@@ -124,7 +127,6 @@ const AUTOMATORS = {
 };
 
 const AUTOMATOR_BORDER = {
-	normal_condensers: "grey",
 	furnace: "#c4711d",
 	pathogens: "#b6c495",
 	cores: "rgb(184, 0, 82)",

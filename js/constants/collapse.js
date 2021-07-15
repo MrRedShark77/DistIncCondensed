@@ -18,7 +18,7 @@ const ESSENCE_MILESTONES = {
 	4: { req: new ExpantaNum(5), desc: "Start with 1 Rocket Fuel on reset." },
 	5: {
 		req: new ExpantaNum(10),
-		desc: "Unlock Fuelbot, and Cadaver gain is boosted by Time Cubes.",
+		desc() { return "Unlock Fuelbot, and Cadaver gain is boosted by Time Cubes." + (modeActive("condensed")?" Unlock Auto-Rocket Condensers.":"") },
 		disp: function () {
 			return showNum(collapseMile5Eff()) + "x";
 		}
@@ -44,6 +44,6 @@ const ESSENCE_MILESTONES = {
 		}
 	},
 	11: { req: new ExpantaNum(1000), desc: "Tiers do not reset Ranks." },
-	12: { req: new ExpantaNum(10000), desc: "Ranks do not reset anything." }
+	12: { req: new ExpantaNum(10000), desc() { return "Ranks do not reset anything." + (modeActive("condensed")?" Keep Rocket & Time Cube Condensers on reset.":"") } },
 };
 const EM_AMT = Object.keys(ESSENCE_MILESTONES).length;

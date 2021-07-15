@@ -90,13 +90,13 @@ function loadTempFeatures() {
 		}),
 		infinity: new Feature({
 			name: "infinity",
-			req: function() { return new ExpantaNum(INF_UNL) },
+			req: function() { return new ExpantaNum(tmp.inf ? tmp.inf.bc : 1) },
 			res: "distance",
 			display: formatDistance,
 			reached: function() { return player.inf.unl },
 			progress: function () {
-				if (player.options.featPerc=="logarithm") return player.distance.max(1).log10().div(new ExpantaNum(INF_UNL).log10());
-				else return player.distance.div(INF_UNL)
+				if (player.options.featPerc=="logarithm") return player.distance.max(1).log10().div(new ExpantaNum(tmp.inf ? tmp.inf.bc : 1).log10());
+				else return player.distance.div(tmp.inf ? tmp.inf.bc : 1)
 			}
 		}),
 		ascension: new Feature({

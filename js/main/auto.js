@@ -306,7 +306,7 @@ function multivAutoTick() {
 
 function autoTick(diff) {
 	normalAutoTick(diff)
-	AutoNormalCondensers()
+	AutoCondensers()
 	furnaceAutoTick()
 	pathogenAutoTick()
 	darkCoreAutoTick()

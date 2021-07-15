@@ -56,7 +56,7 @@ class Layer {
 					: DEFAULT_START[LAYER_RESETS[this.name][i]];
 		player = transformToEN(player, DEFAULT_START);
 		modeLoad(LAYER_RESETS_EXTRA[this.name]);
-		if (modeActive("condensed") && this.name == "collapse") {
+		if (modeActive("condensed") && this.name == "collapse" && !hasCollapseMilestone(12)) {
 			player.condensers.rockets = E(0)
 			player.condensers.tr = E(0)
 		}

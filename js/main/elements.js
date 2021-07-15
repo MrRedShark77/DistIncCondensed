@@ -345,7 +345,7 @@ function updateCollpaseHTML(){
 		);
 		for (let i = 1; i <= EM_AMT; i++) {
 			let ms = ESSENCE_MILESTONES[i];
-			tmp.el["lem" + i].setHTML(ms.desc + "<br>Req: " + showNum(ms.req) + " Life Essence.");
+			tmp.el["lem" + i].setHTML((typeof ms.desc == "function" ? ms.desc() : ms.desc) + "<br>Req: " + showNum(ms.req) + " Life Essence.");
 			if (ms.disp !== undefined) tmp.el["lem" + i].setTooltip("Currently: " + ms.disp());
 			tmp.el["lem" + i].setClasses({ msCont: true, r: !hasCollapseMilestone(i) });
 		}
@@ -362,7 +362,7 @@ function upadtePathogenUpgradesHTML(){
 			gross: player.pathogens.amount.gte(tmp.pathogens[i].cost)
 		});
 		tmp.el["pth" + i].setHTML(
-			PTH_UPGS[i].desc +
+			(typeof PTH_UPGS[i].desc == "function" ? PTH_UPGS[i].desc() : PTH_UPGS[i].desc) +
 				"<br>" +
 				getScalingName("pathogenUpg", i) +
 				"Level: " +
@@ -874,6 +874,7 @@ function updatePlasma() {
 function updateOverallCondensedModeHTML() {
 	tmp.el.condenserDiv.setDisplay(modeActive('condensed'));
 	tmp.el.rCondenserDiv.setDisplay(modeActive('condensed'));
+	tmp.el.pthCondenserDiv.setDisplay(modeActive('condensed'));
 	if (modeActive('condensed')) {
 		updateCondensersHTML()
 	}

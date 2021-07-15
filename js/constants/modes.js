@@ -458,6 +458,7 @@ const MODE_VARS = {
 		condensers: {
 			rockets: E(0),
 			tr: E(0),
+			pathogens: E(0),
 		},
 	},
 };
@@ -526,6 +527,7 @@ const MODE_EX = {
 		source.condensers = {
 			rockets: E(co.rockets||0),
 			tr: E(co.tr||0),
+			pathogens: E(co.pathogens||0),
 		}
 		return source
 	},

@@ -160,7 +160,7 @@ function calcDarkCircleCoreEff(){
 function updateTempDC() { // 339 Normal Mode
 	if (!tmp.dc) tmp.dc = {};
 
-	tmp.dc.lrm = new ExpantaNum(modeActive("extreme") ? 1e-28 : 1).mul(modeActive("condensed") ? 1e128 : 1);
+	tmp.dc.lrm = new ExpantaNum(modeActive("extreme") ? 1e-28 : 1).mul(modeActive("condensed") ? 1e304 : 1);
 
 	calcDarkCircleGain()
 	calcDarkCircleAllComp()

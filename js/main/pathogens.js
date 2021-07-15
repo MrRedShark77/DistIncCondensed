@@ -35,11 +35,13 @@ function updatePathogensGain(){
 	if (tmp.inf) if (tmp.inf.upgs.has("10;10")) tmp.pathogens.gain = tmp.pathogens.gain.times(INF_UPGS.effects["10;10"]())
 	if (tmp.fn && modeActive("extreme")) tmp.pathogens.gain = tmp.pathogens.gain.times(tmp.fn.enh.moltBrEff||1)
 	if (player.elementary.foam.unl && tmp.elm) tmp.pathogens.gain = tmp.pathogens.gain.times(tmp.elm.qf.boost24)
+	if (modeActive("condensed") && tmp.condensed) tmp.pathogens.gain = tmp.pathogens.gain.times(tmp.condensed.pth.effect)
 }
 
 function updateTempPathogens() {
 	if (!tmp.pathogens) tmp.pathogens = {};
 	tmp.pathogens.lrm = new ExpantaNum(1);
+	if (modeActive("condensed")) tmp.pathogens.lrm = tmp.pathogens.lrm.times(10)
 	if (modeActive("hard")) tmp.pathogens.lrm = tmp.pathogens.lrm.div(5);
 	if (modeActive("extreme")) tmp.pathogens.lrm = tmp.pathogens.lrm.times(20);
 	tmp.pathogens.upgPow = new ExpantaNum(1);
@@ -103,22 +105,27 @@ function updateTempPathogens() {
 		let sPos = tmp.inf ? (tmp.inf.upgs.has("3;8") && n >= 6 && n <= 10) : false
 		switch(n) {
 			case 1: {
-				let ret = player.pathogens.amount
-					.plus(1)
-					.log10()
-					.plus(1)
-					.log10()
-					.plus(1)
-					.pow(
-						bought
-							.plus(1)
-							.logBase(2)
-							.plus(bought.gt(0) ? 1 : 0)
+				let ret = E(1)
+				if (modeActive("condensed")) {
+					ret = player.pathogens.amount.add(1).log10().pow(bought)
+				} else {
+					ret = player.pathogens.amount
+						.plus(1)
+						.log10()
+						.plus(1)
+						.log10()
+						.plus(1)
+						.pow(
+							bought
+								.plus(1)
+								.logBase(2)
+								.plus(bought.gt(0) ? 1 : 0)
 					);
-				if (ret.gte(2e3) && !(tmp.elm?tmp.elm.bos.hasHiggs("0;1;4"):false)) ret = ret.sqrt().times(Math.sqrt(2e3));
-				if (ret.gte(1e4)) ret = ret.log10().times(1e4 / 4);
-				if (tmp.elm) if (tmp.elm.bos.hasHiggs("0;1;4")) ret = ret.times(4)
-				if (player.elementary.sky.unl && tmp.elm) ret = ret.times(tmp.elm.sky.pionEff[11])
+					if (ret.gte(2e3) && !(tmp.elm?tmp.elm.bos.hasHiggs("0;1;4"):false)) ret = ret.sqrt().times(Math.sqrt(2e3));
+					if (ret.gte(1e4)) ret = ret.log10().times(1e4 / 4);
+					if (tmp.elm) if (tmp.elm.bos.hasHiggs("0;1;4")) ret = ret.times(4)
+					if (player.elementary.sky.unl && tmp.elm) ret = ret.times(tmp.elm.sky.pionEff[11])
+				}
 				return ret;
 				break;
 			} case 2: {
@@ -216,7 +223,7 @@ function updateTempPathogens() {
 	};
 	if (!tmp.pathogens.disp) tmp.pathogens.disp = function (n) {
 		let eff = tmp.pathogens.eff(n);
-		if (n == 1) return "+" + showNum(eff.sub(1).times(100)) + "%";
+		if (n == 1) return (modeActive("condensed") ? (showNum(eff)+"x later") : ("+" + showNum(eff.sub(1).times(100)) + "%"));
 		else if (n == 2) return showNum(eff) + "x";
 		else if (n == 3) return showNum(eff) + "x";
 		else if (n == 4) return showNum(eff) + "x";
@@ -256,20 +263,21 @@ function updateTempPathogens() {
 
 function getPathogenUpgData(i) {
 	let upg = PTH_UPGS[i];
-	let cost = upg.start.times(ExpantaNum.pow(upg.inc, player.pathogens.upgrades[i]))
-	let bulk = player.pathogens.amount.div(upg.start).max(1).logBase(upg.inc).add(1);
+	let pow = modeActive("condensed") ? E(2.5) : E(1)
+	let cost = upg.start.pow(pow).times(ExpantaNum.pow(upg.inc, player.pathogens.upgrades[i]))
+	let bulk = player.pathogens.amount.div(upg.start.pow(pow)).max(1).logBase(upg.inc).add(1);
 	let start = getScalingStart("scaled", "pathogenUpg");
 	let power = getScalingPower("scaled", "pathogenUpg");
 	let exp = ExpantaNum.pow(3, power);
 	if (scalingActive("pathogenUpg", player.pathogens.upgrades[i].max(bulk), "scaled")) {
-		cost = upg.start.times(
+		cost = upg.start.pow(pow).times(
 			ExpantaNum.pow(
 				upg.inc,
 				player.pathogens.upgrades[i].pow(exp).div(start.pow(exp.sub(1)))
 			)
 		);
 		bulk = player.pathogens.amount
-			.div(upg.start)
+			.div(upg.start.pow(pow))
 			.max(1)
 			.logBase(upg.inc)
 			.times(start.pow(exp.sub(1)))
@@ -280,7 +288,7 @@ function getPathogenUpgData(i) {
 	let power2 = getScalingPower("superscaled", "pathogenUpg");
 	let exp2 = ExpantaNum.pow(5, power2);
 	if (scalingActive("pathogenUpg", player.pathogens.upgrades[i].max(bulk), "superscaled")) {
-		cost = upg.start.times(
+		cost = upg.start.pow(pow).times(
 			ExpantaNum.pow(
 				upg.inc,
 				player.pathogens.upgrades[i]
@@ -291,7 +299,7 @@ function getPathogenUpgData(i) {
 			)
 		);
 		bulk = player.pathogens.amount
-			.div(upg.start)
+			.div(upg.start.pow(pow))
 			.max(1)
 			.logBase(upg.inc)
 			.times(start.pow(exp.sub(1)))
@@ -304,7 +312,7 @@ function getPathogenUpgData(i) {
 	let power3 = getScalingPower("hyper", "pathogenUpg");
 	let base3 = ExpantaNum.pow(1.025, power3);
 	if (scalingActive("pathogenUpg", player.pathogens.upgrades[i].max(bulk), "hyper")) {
-		cost = upg.start.times(
+		cost = upg.start.pow(pow).times(
 			ExpantaNum.pow(
 				upg.inc,
 				ExpantaNum.pow(base3, player.pathogens.upgrades[i].sub(start3))
@@ -316,7 +324,7 @@ function getPathogenUpgData(i) {
 			)
 		);
 		bulk = player.pathogens.amount
-			.div(upg.start)
+			.div(upg.start.pow(pow))
 			.max(1)
 			.logBase(upg.inc)
 			.times(start.pow(exp.sub(1)))
@@ -334,6 +342,7 @@ function getPathogenUpgData(i) {
 
 function getPathogenUpgSoftcapStart(x) {
 	let sc = new ExpantaNum(PTH_UPG_SCS[x])
+	if (x == 1 && modeActive("condensed")) sc = sc.plus(2)
 	if (tmp.inf) if (tmp.inf.upgs.has("3;6")) sc = sc.plus(1);
 	if (modeActive("hard")) {
 		sc = modeActive("easy") ? sc : new ExpantaNum(modeActive("extreme")?1:2);

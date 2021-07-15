@@ -3,7 +3,7 @@ const PTH_UPGS = {
 	1: {
 		start: new ExpantaNum(5),
 		inc: new ExpantaNum(3.5),
-		desc: "Time Reversal Upgrade 2 is boosted by your Pathogens."
+		desc() { return modeActive("condensed") ? "Time Reversal Upgrade 2 softcap starts later based on Pathogens." : "Time Reversal Upgrade 2 is boosted by your Pathogens." }
 	},
 	2: { start: new ExpantaNum(100), inc: new ExpantaNum(10), desc: "Rocket gain is boosted by your Cadavers." },
 	3: { start: new ExpantaNum(100), inc: new ExpantaNum(10), desc: "Time Cube gain is boosted by your Cadavers." },
